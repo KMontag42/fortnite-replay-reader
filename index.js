@@ -1,10 +1,15 @@
-const fs = require('fs');
-const parser = require('./lib/parser.js');
+const fs = require("fs");
+const parser = require("./lib/parser.js");
 
-const file = './data/test3.replay'
+// get a list of all the files in the data directory
+fs.readdir("./data", (err, items) => {
+  items.map(i => {
+    const file = `./data/${i}`;
 
-const buffer = fs.readFileSync(file);
+    const buffer = fs.readFileSync(file);
 
-var data = parser.parse(buffer);
+    const data = parser.parse(buffer);
 
-console.log(JSON.stringify(data.header, null, 2));
+    console.log(file, JSON.stringify(data.header, null, 2));
+  });
+});
